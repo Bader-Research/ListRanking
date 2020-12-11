@@ -1,0 +1,23 @@
+Given an arbitrary linked list that is stored in a contiguous area of memory, the list ranking problem determines the distance of each node to the head of the list. For a random list, the memory access patterns are highly irregular, and this makes list ranking a challenging problem to solve efficiently on parallel architectures. It is general perception that the Cell architecture is not suited for problems that involve fine-grained memory accesses, and where there is insufficient computation to hide memory latency. The list ranking problem is representative of such problems, and is a fundamental paradigm for the design of many parallel combinatorial and graph-theoretic applications.
+
+Here we have an implementation of list ranking that attains significant speedups as compared to several architectures and PPE-only implementation. We use our latency hiding technique to solve this problem. (Please refer to http://www.cc.gatech.edu/~bader/papers/ListrankCell.html). The algorithm is discussed in this paper, D. A. Bader, V. Agarwal, and K. Madduri. On the Design and Analysis of Irregular Algorithms on the Cell Processor: a Case Study on List Ranking. In Proc. of the 21st IEEE/ACM International Parallel and Distributed Processing Symposium, March 2007.
+
+Installing the code:
+1. Specify path to 'make.footer'
+-> export MAKE_FOOTER = <path to make.footer>
+
+2. Specify Compiler xlc OR gcc (default gcc)
+-> export PPU_COMPILER = xlc OR gcc
+   export SPU_COMPILER = xlc OR gcc
+
+3. Compile
+-> make
+
+
+Running the Code: 
+- The executable formed is 'ppu/listrank'. 
+- For profiling the code please uncomment the '-DPROFILING' flag in 'spu/Makefile' and 'ppu/Makefile'. 
+- The code verifies the output by default. 
+- For an output that shows the head and tail of each sublist please uncomment the'-DOUTPUT' flag in the 'ppu/Makefile'.
+- Run the code './listrank <log of the size of the list> <0,1>'
+The first command line options is to specify the size of the list, specify 'x' for a list of size '2^x'. The second command line option is to specify whether the list should be ordered (1) or random (0). 
